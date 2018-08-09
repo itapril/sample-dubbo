@@ -1,3 +1,8 @@
+### 分支介绍
+| 分支     | 介绍   |
+| ------ | ---- |
+| master | 最新代码 |
+
 ### 项目介绍
 
 - 项目依赖环境：JDK1.8+,zookeeper
@@ -26,7 +31,7 @@ public Integer addSample(SampleVO sampleVO) throws Exception {
         // 测试事务管理  模拟异常产生  
         int test = 1/0;
         return code;
-    }
+}
 ```
 
 将上面的除以零打开注释，在请求增加接口，数据库中不会增加数据
@@ -34,6 +39,7 @@ public Integer addSample(SampleVO sampleVO) throws Exception {
 ```json
 POST: localhost:9092/sample/addSample
 Content-Type:application/json
+
 Body:
 {
     "name": "test_dem23o8"
@@ -46,10 +52,6 @@ Body:
 
 
 
-### 分支介绍
-| 分支     | 介绍   |
-| ------ | ---- |
-| master | 最新代码 |
 
 
 
@@ -68,6 +70,7 @@ Body:
 
 
 
+### 备忘知识
 - `数据对象`：       xxxDO     xxx即为数据表名
 - `数据传输对象`：   xxxDTO    xxx为业务领域相关的名称
 - `展示对象`：       xxxVO     xxx一般为网页名称
