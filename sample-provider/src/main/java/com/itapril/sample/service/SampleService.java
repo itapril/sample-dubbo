@@ -1,5 +1,7 @@
 package com.itapril.sample.service;
 
+import com.github.pagehelper.PageHelper;
+import com.itapril.sample.api.vo.bean.PageBean;
 import com.itapril.sample.api.vo.request.SampleVO;
 import com.itapril.sample.biz.SampleBiz;
 import com.itapril.sample.po.SampleEntity;
@@ -18,10 +20,12 @@ public class SampleService {
     @Resource(name="sampleBiz")
     private SampleBiz sampleBiz;
 
-    public List<SampleEntity> list(SampleVO sampleVO) throws Exception{
+    public PageBean<SampleEntity>  list(SampleVO sampleVO) throws Exception{
         SampleEntity entity = new SampleEntity().voToEntity(sampleVO);
+        PageHelper.startPage(sampleVO.getPageNum(), sampleVO.getPageSize());
         List<SampleEntity> list =  sampleBiz.list(entity);
-        return list;
+        PageBean<SampleEntity> page = new PageBean<SampleEntity>(list);
+        return page;
     }
 
     public Integer addSample(SampleVO sampleVO) throws Exception {

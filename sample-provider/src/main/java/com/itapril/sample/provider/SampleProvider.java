@@ -3,6 +3,7 @@ package com.itapril.sample.provider;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.itapril.sample.api.common.ResultResponse;
 import com.itapril.sample.api.service.ISampleService;
+import com.itapril.sample.api.vo.bean.PageBean;
 import com.itapril.sample.api.vo.request.SampleVO;
 import com.itapril.sample.po.SampleEntity;
 import com.itapril.sample.service.SampleService;
@@ -26,8 +27,8 @@ public class SampleProvider implements ISampleService {
     public ResultResponse list(SampleVO sampleVO) {
         ResultResponse result = new ResultResponse();
         try {
-            List<SampleEntity> list =  sampleService.list(sampleVO);
-            result.setSuccess("查询成功", list);
+            PageBean<SampleEntity> pageList =  sampleService.list(sampleVO);
+            result.setSuccess("查询成功", pageList);
         } catch (Exception e) {
             e.printStackTrace();
             result.setError(e.getMessage());
