@@ -5,6 +5,7 @@ import com.itapril.sample.api.common.ResultResponse;
 import com.itapril.sample.api.service.ISampleService;
 import com.itapril.sample.api.vo.bean.PageBean;
 import com.itapril.sample.api.vo.request.SampleVO;
+import com.itapril.sample.api.vo.response.SampleResponse;
 import com.itapril.sample.po.SampleEntity;
 import com.itapril.sample.service.SampleService;
 import org.springframework.stereotype.Component;
@@ -27,7 +28,7 @@ public class SampleProvider implements ISampleService {
     public ResultResponse list(SampleVO sampleVO) {
         ResultResponse result = new ResultResponse();
         try {
-            PageBean<SampleEntity> pageList =  sampleService.list(sampleVO);
+            PageBean<SampleResponse> pageList =  sampleService.list(sampleVO);
             result.setSuccess("查询成功", pageList);
         } catch (Exception e) {
             e.printStackTrace();

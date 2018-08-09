@@ -22,24 +22,25 @@
 
 
 	<!-- ************ load properties  ************ -->
-	<util:properties id="settings" location="classpath:config.properties" />
+	<!--<util:properties id="settings" location="classpath:config.properties" />-->
 	<!-- 公共信息，也可以用dubbo.properties配置 -->
     <dubbo:application name="sample-consumer" owner="programmer" organization="dubbox"/>
-    <dubbo:registry protocol="zookeeper" address="${zk.host.port}" timeout="${dubbo.timeout}"/>
+    <dubbo:registry address="zookeeper://10.15.1.114:2181" timeout="9000"/>
     <!-- kryo实现序列化  -->
-	<dubbo:protocol name="dubbo" serialization="${dubbo.protocol.serialization}" optimizer="com.itapril.sample.api.common.SerializationOptimizerImpl"/>
+	<!--<dubbo:protocol name="dubbo" serialization="kryo" optimizer="com.itapril.sample.api.common.SerializationOptimizerImpl"/>-->
 
     <!-- 扫描注解包路径，多个包用逗号分隔，不填pacakge表示扫描当前ApplicationContext中所有的类 -->
 	<dubbo:annotation package="com.itapril.sample" />
+	<dubbo:reference  interface="com.itapril.sample.api.service.ISampleService" id="sampleService"/>
         
-	<bean	class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
+	<!--<bean	class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
 	<bean	class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
 		<property name="messageConverters">
 			<list>
 				<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
 			</list>
 		</property>
-	</bean>
+	</bean>-->
 
 
 </beans>

@@ -13,9 +13,9 @@ public class PageBean<T> implements Serializable {
     private static final long serialVersionUID = 8656597559014685635L;
     private long total;        //总记录数
     private List<T> list;    //结果集
-    private int pageNum;    // 第几页
+    private long pageNum;    // 第几页
     private int pageSize;    // 每页记录数
-    private int pages;        // 总页数
+    private long pages;        // 总页数
     private int size;        // 当前页的数量 <= pageSize，该属性来自ArrayList的size属性
 
     public PageBean() {
@@ -58,7 +58,7 @@ public class PageBean<T> implements Serializable {
         return pageNum;
     }
 
-    public void setPageNum(int pageNum) {
+    public void setPageNum(long pageNum) {
         this.pageNum = pageNum;
     }
 
@@ -74,7 +74,7 @@ public class PageBean<T> implements Serializable {
         return pages;
     }
 
-    public void setPages(int pages) {
+    public void setPages(long pages) {
         this.pages = pages;
     }
 
