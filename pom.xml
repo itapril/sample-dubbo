@@ -1,0 +1,68 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.itapril.sample</groupId>
+	<artifactId>sample-dubbo</artifactId>
+	<version>0.1</version>
+	<packaging>pom</packaging>
+	<name>${project.artifactId}</name>
+	<description>dubbo demo project : sample</description>
+
+	<modules>
+		<module>sample-api</module>
+		<module>sample-provider</module>
+		<module>sample-consumer</module>
+	</modules>
+
+	<properties>
+		<java-version>1.8</java-version>
+		<org.springframework-version>4.2.4.RELEASE</org.springframework-version>
+		<org.mybatis-version>3.4.2</org.mybatis-version>
+		<org.aspectj-version>1.7.4</org.aspectj-version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	
+	<dependencies>
+		<!-- dubbo 主要jar包 -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>dubbo</artifactId>
+			<version>2.8.4</version>
+		</dependency>
+	</dependencies>
+
+<profiles>
+		<profile>
+			<id>prod</id>
+           <!-- <activation>
+                &lt;!&ndash; 设置默认项 &ndash;&gt;
+                <activeByDefault>true</activeByDefault>
+            </activation>-->
+			<properties>
+				<env>prod</env>
+				<!--<profiles.active>local</profiles.active>-->
+			</properties>
+		</profile>
+		<profile>
+			<id>dev</id>
+			<activation>
+				<!-- 设置默认项 -->
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<env>dev</env>
+				<!--<profiles.active>dev</profiles.active>-->
+			</properties>
+		</profile>
+		<profile>
+			<id>test</id>
+			<properties>
+				<env>test</env>
+				<!--<profiles.active>test</profiles.active>-->
+			</properties>
+		</profile>
+	</profiles>
+
+
+</project>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/aop 
+						http://www.springframework.org/schema/aop/spring-aop.xsd
+						http://www.springframework.org/schema/context 
+						http://www.springframework.org/schema/context/spring-context.xsd
+						http://www.springframework.org/schema/tx
+						http://www.springframework.org/schema/tx/spring-tx.xsd
+						http://www.springframework.org/schema/util
+						http://www.springframework.org/schema/util/spring-util-3.0.xsd
+      					http://code.alibabatech.com/schema/dubbo
+      					http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+
+
+	<!-- ************ load properties  ************ -->
+	<util:properties id="settings" location="classpath:config.properties" />
+	<!-- 公共信息，也可以用dubbo.properties配置 -->
+    <dubbo:application name="sample-consumer" owner="programmer" organization="dubbox"/>
+    <dubbo:registry protocol="zookeeper" address="${zk.host.port}" timeout="${dubbo.timeout}"/>
+    <!-- kryo实现序列化  -->
+	<dubbo:protocol name="dubbo" serialization="${dubbo.protocol.serialization}" optimizer="com.itapril.sample.api.common.SerializationOptimizerImpl"/>
+
+    <!-- 扫描注解包路径，多个包用逗号分隔，不填pacakge表示扫描当前ApplicationContext中所有的类 -->
+	<dubbo:annotation package="com.itapril.sample" />
+        
+	<bean	class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
+	<bean	class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
+			</list>
+		</property>
+	</bean>
+
+
+</beans>
