@@ -9,8 +9,6 @@ import java.io.Serializable;
  * @author itapril.
  * @create 2018/8/9 09:30.
  */
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
 public class ResultResponse implements Serializable {
     private String message;
     private String errorCode = "0";

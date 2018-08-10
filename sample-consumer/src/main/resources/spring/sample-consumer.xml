@@ -31,16 +31,28 @@
 
     <!-- 扫描注解包路径，多个包用逗号分隔，不填pacakge表示扫描当前ApplicationContext中所有的类 -->
 	<dubbo:annotation package="com.itapril.sample" />
-	<dubbo:reference  interface="com.itapril.sample.api.service.ISampleService" id="sampleService"/>
-        
-	<!--<bean	class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
-	<bean	class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+
+	<!--<dubbo:reference  id="sampleService" interface="com.itapril.sample.api.service.ISampleService" version="1.0.0" />-->
+	<!-- dubbo 事件通知 实例 ，如果不需要没使用上面的注解  -->
+	<bean id="eventNotify" class="com.itapril.sample.event.impl.EventNotifyImpl"/>
+	<dubbo:reference  id="sampleService" interface="com.itapril.sample.api.service.ISampleService" version="1.0.0">
+		<dubbo:method name="list"
+					  onreturn="eventNotify.onreturn"
+					  onthrow="eventNotify.onthrow"
+		/>
+	</dubbo:reference>
+
+	<dubbo:reference  id="testCacheService" check="false" interface="com.itapril.sample.api.service.ITestCacheService" cache="lru" version="1.0.0"/>
+
+	<!--如果不使用下面的配置 controller 返回的不是json格式  报406的错-->
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
 		<property name="messageConverters">
 			<list>
 				<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
 			</list>
 		</property>
-	</bean>-->
+	</bean>
 
 
 </beans>

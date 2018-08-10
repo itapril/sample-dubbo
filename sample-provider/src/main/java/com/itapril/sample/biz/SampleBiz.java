@@ -30,4 +30,9 @@ public class SampleBiz {
         return (Integer) dao.save("SampleMapper.addSample", entity);
     }
 
+    public Integer updateSample(SampleEntity entity) throws Exception{
+        entity.setUpdateTime(new Date());
+        return (Integer) dao.update("SampleMapper.updateSample", entity);
+    }
+
 }

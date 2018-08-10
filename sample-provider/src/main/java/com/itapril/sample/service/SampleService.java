@@ -8,6 +8,7 @@ import com.itapril.sample.api.vo.response.SampleResponse;
 import com.itapril.sample.biz.SampleBiz;
 import com.itapril.sample.po.SampleEntity;
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -21,11 +22,14 @@ import java.util.List;
  */
 @Service("sampleService")
 public class SampleService {
+    public static final Logger logger = Logger.getLogger(SampleService.class);
+
 
     @Resource(name="sampleBiz")
     private SampleBiz sampleBiz;
 
     public PageBean<SampleResponse>  list(SampleVO sampleVO) throws Exception{
+        logger.info(" ...... request list ...... ");
         SampleEntity entity = new SampleEntity().voToEntity(sampleVO);
         PageHelper.startPage(sampleVO.getPageNum(), sampleVO.getPageSize());
         List<SampleEntity> list =  sampleBiz.list(entity);
@@ -60,8 +64,18 @@ public class SampleService {
     }
 
     public Integer addSample(SampleVO sampleVO) throws Exception {
+        logger.info(" ...... request addSample ...... ");
         SampleEntity entity = new SampleEntity().voToEntity(sampleVO);
         Integer code =  sampleBiz.addSample(entity);
+        // 测试事务管理  模拟异常产生
+//        int test = 1/0;
+        return code;
+    }
+
+    public Integer updateSample(SampleVO sampleVO ) throws Exception {
+        logger.info(" ...... request updateSample ...... ");
+        SampleEntity entity = new SampleEntity().voToEntity(sampleVO);
+        Integer code =  sampleBiz.updateSample(entity);
         // 测试事务管理  模拟异常产生
 //        int test = 1/0;
         return code;

@@ -36,4 +36,22 @@
         )
     </insert>
 
+    <update id="updateSample" parameterType="com.itapril.sample.po.SampleEntity">
+        update h3c_ip
+        <set>
+            <if test="uuid != null">
+                uuid = #{uuid},
+            </if>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+    </update>
+
 </mapper>

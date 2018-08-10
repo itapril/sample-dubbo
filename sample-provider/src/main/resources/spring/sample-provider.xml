@@ -37,7 +37,11 @@
 	<dubbo:application name="sample-provider" owner="itapril" organization="dubbox" />
 	<dubbo:registry protocol="zookeeper" address="${zk.host.port}" timeout="${dubbo.timeout}"/>
 
-	<dubbo:protocol name="dubbo" port = "${dubbo.port}" serialization="${dubbo.protocol.serialization}" optimizer="com.itapril.sample.api.common.SerializationOptimizerImpl"/>
+	<dubbo:protocol name="dubbo" port = "${dubbo.port}"
+					serialization="${dubbo.protocol.serialization}"
+					optimizer="com.itapril.sample.api.common.SerializationOptimizerImpl"
+
+	/>
 
 
 
@@ -49,7 +53,8 @@
 	<dubbo:provider filter="AuthorityFilter"/>
 
 	<!-- 使用定时器注解  -->
-	<task:annotation-driven/> 
+	<!--去掉定时器 需要时再打开-->
+	<!--<task:annotation-driven/> -->
 	
 	<!--************ DB orm config ************-->
 	<bean name="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">

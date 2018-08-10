@@ -18,7 +18,7 @@ import java.util.List;
  */
 @Component
 public class TestMain {
-    @Reference(version = "1.0.0")
+    /*@Reference(version = "1.0.0")
     private ISampleService sampleService;
 
     public void test(){
@@ -28,12 +28,20 @@ public class TestMain {
         List<SampleResponse> list = object.getList();
         System.out.println("--- >　>  >" + object);
         System.out.println("--- >　>  >" + list);
-    }
+    }*/
 
     public static void main(String[] args) {
         ClassPathXmlApplicationContext pathXmlApplicationContext=new ClassPathXmlApplicationContext("spring/sample-consumer.xml");
-        TestMain bean = pathXmlApplicationContext.getBean(TestMain.class);
-        bean.test();
+        ISampleService sampleService = (ISampleService) pathXmlApplicationContext.getBean("sampleService");
+        for ( int i=0; i<10; i++){
+            SampleVO vo = new SampleVO();
+            ResultResponse response = sampleService.list(vo);
+            System.out.println("-----> " + response);
+        }
+
+       /* TestMain bean = pathXmlApplicationContext.getBean(TestMain.class);
+
+        bean.test();*/
         System.exit(0);
     }
 }
