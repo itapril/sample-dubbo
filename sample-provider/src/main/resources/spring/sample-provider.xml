@@ -30,18 +30,23 @@
 			</list>
 		</property>
 	</bean>
+	<!-- 扫描注解包路径，多个包用逗号分隔，不填pacakge表示扫描当前ApplicationContext中所有的类 -->
+	<dubbo:annotation package="com.itapril.sample" />
 
 	<!--************ dubbo config ************-->
 	<dubbo:application name="sample-provider" owner="itapril" organization="dubbox" />
 	<dubbo:registry protocol="zookeeper" address="${zk.host.port}" timeout="${dubbo.timeout}"/>
+
 	<dubbo:protocol name="dubbo" port = "${dubbo.port}" serialization="${dubbo.protocol.serialization}" optimizer="com.itapril.sample.api.common.SerializationOptimizerImpl"/>
-	
-	<!-- 扫描注解包路径，多个包用逗号分隔，不填pacakge表示扫描当前ApplicationContext中所有的类 -->
-	<dubbo:annotation package="com.itapril.sample" />
+
+
+
 	
 	<dubbo:protocol name="rest" port="${dubbo.rest.port}" threads="${dubbo.rest.threads}"
 		contextpath="${dubbo.rest.contextpath}" server="${dubbo.rest.server}" accepts="${dubbo.rest.accepts}"
 		extension="com.alibaba.dubbo.rpc.protocol.rest.support.LoggingFilter" />
+	<!--<dubbo:provider filter="AuthorityFilter"/>-->
+	<dubbo:provider filter="AuthorityFilter"/>
 
 	<!-- 使用定时器注解  -->
 	<task:annotation-driven/> 
